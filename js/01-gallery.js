@@ -1,39 +1,43 @@
 import { galleryItems } from './gallery-items.js';
-// Change code below this line
-// console.log(galleryItems);
-const galleryContainer = document.querySelector('.gallery')
-console.log(galleryContainer);
 
-function listGalleryItems(items) {
+const gallery = galleryItems.map(({original, preview, description})=> 
+    `<div  class="gallery__item">
+        <a class="gallery__link" 
+            href="${original}">
+            <img class="gallery__image"
+            src="${preview}"
+            data-source="${original}"
+            alt="${description}"/>
+        </a>
+    </div>`).join("");
 
-    return items.map(item => 
-    `<a class="gallery__item" 
-        data-lightbox="images"
-        href="${item.original}">
-        <img
-        class="gallery__image"
-        src="${item.preview}"
-        data-source="${item.original}"
-        alt="${item.description}"/>
-    </a>`).join("");
+const galleryContainer = document.querySelector(".gallery");
+
+galleryContainer.insertAdjacentHTML("afterbegin", gallery);
+console.log(galleryItems);
+
+galleryContainer.addEventListener("click", openModal);
+
+function openModal(evt) {
+    evt.preventDefault()
+    if (!evt.target.classList.contains("gallery__image")) {
+        return;
+    }
+    
+    const dataSource = evt.target.getAttribute("data-source")
+    // console.log(dataSource);
+
+    const instance = basicLightbox.create(`
+        <img src="${dataSource}"/> `)
+    instance.show();
+    // console.log(instance);
+
+    
+    // доп
+document.addEventListener("keydown", closeEscModal);
+    function closeEscModal(e) {
+        if (e.code === "Escape") {
+            instance.close();
+        }
+    }     
 }
-
-galleryContainer.innerHTML = listGalleryItems(galleryItems)
-// galleryContainer.addEventListener("click", function(event){
-//     event.preventDefault()
-//   });
-
-// let gallery = new SimpleLightbox('.gallery a', { 
-//     overlayOpacity: 0.8, 
-//     fadeSpeed :250, 
-//     captionsData: 'alt',
-// });
-
-
-
-// gallery.on('show.simplelingtbox', function (e){
-// });
-
-// document.getElementById("myAnchor").addEventListener("click", function(event){
-//     event.preventDefault()
-//   });
