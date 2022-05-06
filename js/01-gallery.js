@@ -27,17 +27,17 @@ function openModal(evt) {
     const dataSource = evt.target.getAttribute("data-source")
     // console.log(dataSource);
 
-    const instance = basicLightbox.create(`
-        <img src="${dataSource}"/> `)
+    const instance = basicLightbox.create(
+        `<img src="${dataSource}"/> `)
     instance.show();
     // console.log(instance);
 
     
     // доп
-document.addEventListener("keydown", closeEscModal);
+    document.addEventListener("keydown", closeEscModal,{ once: true });
     function closeEscModal(e) {
         if (e.code === "Escape") {
             instance.close();
         }
-    }     
+    }      
 }
