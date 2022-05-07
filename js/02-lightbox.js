@@ -18,5 +18,6 @@ console.log(galleryItems);
 let ligthBox = new SimpleLightbox('.gallery a', {
     captionsData: "alt", 
     captionPosition: "bottom",
-    fadeSpeed: 250});
+    captionDelay: 250,
+    });
 

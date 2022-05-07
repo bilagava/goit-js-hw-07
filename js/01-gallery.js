@@ -23,21 +23,20 @@ function openModal(evt) {
     if (!evt.target.classList.contains("gallery__image")) {
         return;
     }
-    
+ 
     const dataSource = evt.target.getAttribute("data-source")
     // console.log(dataSource);
 
     const instance = basicLightbox.create(
         `<img src="${dataSource}"/> `)
     instance.show();
-    // console.log(instance);
-
-    
+       // console.log(instance);
+      
     // доп
     document.addEventListener("keydown", closeEscModal,{ once: true });
     function closeEscModal(e) {
         if (e.code === "Escape") {
             instance.close();
         }
-    }      
+    }          
 }
